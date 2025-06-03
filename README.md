@@ -1,6 +1,6 @@
 # dc-extension-automatic-alt-text
 
-This extension allows customers to use and select alt text that has been automatically generated for images in the Amplience Content Hub using the [Automatic Alt Text](https://amplience.com/developers/docs/release-notes/2024/alt-text-generation/) solution which automatically assigns alt text to image assets.
+This extension allows customers to use and select alt text that has been automatically generated for images in the Amplience Content Hub using the [Automatic Alt Text](https://amplience.com/developers/docs/dev-tools/assets/image-alt-text/) solution which automatically assigns alt text to image assets.
 
 Using this extension can help content creators by automating information required for accessibility and compliance.
 
@@ -28,7 +28,7 @@ This section describes how to use this extension from a user perspective in the 
 
 ### General information
 
-[Automatic Alt Text](https://amplience.com/developers/docs/release-notes/2024/alt-text-generation/) uses AI to generate alt text for image assets in the Amplience Content Hub.
+[Automatic Alt Text](https://amplience.com/developers/docs/dev-tools/assets/image-alt-text/) uses AI to generate alt text for image assets in the Amplience Content Hub.
 
 This process is not always immediate so the following circumstances may require refreshing the alt text via the UI if no alt text is availble at the time of selecting an image:
 
@@ -110,7 +110,7 @@ Sandbox permissions:
 
 ### Automatic Alt Text feature
 
-This extension should be used in conjunction with [Automatic Alt Text](https://amplience.com/developers/docs/release-notes/2024/alt-text-generation/).
+This extension should be used in conjunction with [Automatic Alt Text](https://amplience.com/developers/docs/dev-tools/assets/image-alt-text/).
 
 Whilst text can still inputted manually without this, if this feature is not enabled it is recommended to have your alt text as standard text / localised text fields.
 

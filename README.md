@@ -1,15 +1,19 @@
 # dc-extension-automatic-alt-text
 
-This extension allows customers to use and select alt text that has been automatically generated for images in the Amplience Content Hub using the [Automatic Alt Text](https://amplience.com/developers/docs/dev-tools/assets/image-alt-text/) solution which automatically assigns alt text to image assets.
+This extension gives the customer two different modes to select alt text for images in the Amplience Content Hub. The appropriate mode can be be configured in the extension parameters (see below for more information).
+
+1. **Automatic mode:** by using the automatic mode customers can select alt text that has been automatically generated for images in the Amplience Content Hub using the [Automatic Alt Text](https://amplience.com/developers/docs/dev-tools/assets/image-alt-text/) solution which automatically assigns alt text to image assets.
+
+2. **Generated mode:** by using the generated mode customers can generate alt text for images on the fly based on the [Alt Text Template](https://amplience.com/developers/docs/amplience-studios/content-studio/generating-content/#alt-text) in Content Studio.
 
 Using this extension can help content creators by automating information required for accessibility and compliance.
 
 For developers, it ensures that the alt text is available in the content form and supports localisation in our delivery APIs to minimise requests needed on the web applications.
 
-Screenshot of extenion on standard text field:
+Screenshot of extension on standard text field in automatic mode:
 ![Automatic Alt Text Extension](media/hero-standard.png "Screen of standard text field")
 
-Screenshot of extension on localised text field:
+Screenshot of extension on localised text field in automatic mode:
 ![Automatic Alt Text Extension - Localised](media/hero-localised.png "Screenshot of localised text field")
 
 ## Key features
@@ -18,9 +22,11 @@ Screenshot of extension on localised text field:
 - Ability to point to any native Amplience image (including those within extensions)
 - Setting to turn on / off automatic population of fields on image selection
 - Ability to choose locale for text fields
-- Ability to click to refresh all alt text
-- Ability to refresh alt text for individual localised fields
+- Ability to click to refresh all alt text (in automatic mode)
+- Ability to click to generate all alt text (in generated mode)
+- Ability to refresh / generate alt text for individual localised fields (depending on mode selection)
 - Ability to manually create alt text or edit in Dynamic Content
+- Ability to use a brand voice for generated alt text
 
 ## User Guide
 
@@ -30,10 +36,10 @@ This section describes how to use this extension from a user perspective in the 
 
 [Automatic Alt Text](https://amplience.com/developers/docs/dev-tools/assets/image-alt-text/) uses AI to generate alt text for image assets in the Amplience Content Hub.
 
-This process is not always immediate so the following circumstances may require refreshing the alt text via the UI if no alt text is availble at the time of selecting an image:
+This process is not always immediate so the following circumstances may require refreshing the alt text via the UI if no alt text is available at the time of selecting an image:
 
 - Image has just been uploaded.
-- Image as just been edited in [Image Studio](https://amplience.com/developers/docs/amplience-studios/image-studio/) via one of the extensions and saved.
+- Image has just been edited in [Image Studio](https://amplience.com/developers/docs/amplience-studios/image-studio/) via one of the extensions and saved.
 
 See the [Limitations](#limitations) section for further guidance.
 
@@ -41,25 +47,23 @@ See the [Limitations](#limitations) section for further guidance.
 
 The text field behaves as a normal text field and can be edited as such.
 
-Clicking the Globe icon at the end of the text field (highlighted in red) will refresh the 'Default' alt text for that asset if available. This button will only show if alt text is available for this asset:
+In automatic mode, clicking the Globe icon at the end of the text field (highlighted in red) will refresh the 'Default' alt text for that asset if available. This button will only show if alt text is available for this asset:
 
-![Fetch in text line](media/text-line-fetch-standard.png)
+![Fetch in text line](media/text-input-automatic.png)
+
+In generated mode, clicking the Sparkles icon at the end of the text field (highlighted in red) will generate the 'Default' alt text for that asset:
+
+![Generate in text line](media/text-input-generated.png)
 
 If using [Item level localisation](https://amplience.com/developers/docs/user-guides/produce-content/localize/#content-item-localization) this allows you to quickly select the right localised alt text for your content.
 
-When an asset is selected, if alt text is available for the asset a series of 'quick locale selector' buttons will be displayed below the text field.
-
-Only options with alt text available will be displayed. The order of the locales displayed is the same order as the Alt text assigned to the image asset in Content Hub:
+In automatic mode, when an asset is selected, if alt text is available for the asset a series of 'quick locale selector' buttons will be displayed below the text field:
 
 ![Locale buttons](media/locale-chips.png)
 
-If more locales are available than fit into one line, an option to "Show more" is displayed to see all locales and select from:
+Only options with alt text available will be displayed. The order of the locales displayed is the same order as the Alt text assigned to the image asset in Content Hub
 
-![Locale buttons show more](media/locale-chips-show-more.png)
-
-To collapse the view, simply click the "Show less" button:
-
-![Locale buttons show less](media/locale-chips-show-less.png)
+In generated mode, options will be displayed to generate alt text based on the locales configured in the hub.
 
 ### Localised text field
 
@@ -67,17 +71,11 @@ The order of the text fields displayed is the order of the locales for your Dyna
 
 The text fields behave as normal localised text fields and can be edited as such.
 
-Clicking the 'Refresh alt texts' button will auto populate all available alt text values for each locale if available:
+In automatic mode, clicking the 'Refresh alt texts' button will auto populate all available alt text values for each locale if available. Clicking the Globe icon at the end of the text field will refresh the alt text for that locale. This icon is only visible if alt text is available for that locale.
 
-![Refresh All Button](media/refresh-all.png)
+In generated mode, clicking the 'Generate alt texts' button will generate alt text for all locales. Clicking the Sparkles icon at the end of the text field will generate alt text for that locale.
 
-Clicking the Globe icon at the end of the text field (highlighted in red) will refresh the alt text for that locale. This icon is only visible if alt text is available for that locale:
-
-![Fetch in text line](media/text-line-fetch-localised.png)
-
-Clicking the "Clear all" button will clear Alt text for all locales:
-
-![Clear All Button](media/clear-all.png)
+> Note: As this is a live request a loading visual is displayed when content is being generated as well as the fields temporarily being set to read only.
 
 ## How to install
 
@@ -106,21 +104,53 @@ Sandbox permissions:
 
 - Allow same origin
 
+### Installation Parameters
+
+![Installation Parameters](media/installation-parameters.png)
+
+The extensions can be configured with a number of installation parameters which will determine how the extension operates.
+
+| Installation Parameter                 | Required | Default                                                                            | Notes                                                                                                                                                |
+| -------------------------------------- | :------: | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `image`                                |    ✅    |                                                                                    | [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901) to an image                                                                            |
+| `mode`                                 |          | `"AUTOMATIC"`                                                                      | Can be `AUTOMATIC` ([Asset Alt Text](###dynamic-content-asset-alt-text)) or `GENERATED` ([Generated Alt Text](##dynamic-content-generated-alt-text)) |
+| `autoCaption`                          |          | `true`                                                                             | Toggle auto caption                                                                                                                                  |
+| `defaultLocale`                        |          | `"en-US"`                                                                          |                                                                                                                                                      |
+| `generateAltTextSettings.templateId`   |          | `Q29udGVudEdlbmVyYXRpb25CcmllZlRlbXBsYXRlOmFsdC10ZXh0`                             | Only used for `GENERATED` mode.                                                                                                                      |
+| `generateAltTextSettings.modelId`      |          | `Q29udGVudEdlbmVyYXRpb25Nb2RlbDpmY2E3ZTUzNS00YmE1LTRlODQtODkzYy0xMDg0YWM1ZGM0NDU=` | Only used for `GENERATED` mode                                                                                                                       |
+| `generateAltTextSettings.brandVoiceId` |          |                                                                                    | Only used for `GENERATED` mode                                                                                                                       |
+
 ## Prerequisites
 
-### Automatic Alt Text feature
+## Dynamic Content Asset Alt Text
 
-This extension should be used in conjunction with [Automatic Alt Text](https://amplience.com/developers/docs/dev-tools/assets/image-alt-text/).
+This extension can be used in conjunction with [Automatic Alt Text](https://amplience.com/developers/docs/dev-tools/assets/image-alt-text/).
 
 Whilst text can still inputted manually without this, if this feature is not enabled it is recommended to have your alt text as standard text / localised text fields.
 
 ### Dynamic Content Asset Tab
 
-Your Dynamic Content Hub must have the [Asset Tab](https://automatic-alt-text.extensions.content.amplience.net) enabled. This is to ensure API access to get the alt text meta data for the asset.
+Your Dynamic Content Hub must have the [Asset Tab](https://amplience.com/developers/docs/user-guides/basics/dynamic-content/assets-tab/) enabled. This is to ensure API access to get the alt text meta data for the asset.
+
+## Dynamic Content Generated Alt Text
+
+This extension can also be used in conjunction with [Content Studio API](https://amplience.com/developers/docs/apis/content-studio/) to generate alt text on demand.
+
+### Template ID property
+
+Amplience has a default alt text template with ID: `Q29udGVudEdlbmVyYXRpb25CcmllZlRlbXBsYXRlOmFsdC10ZXh0`. Alternatively you can supply your own.
+
+### Model ID property
+
+Amplience has a default alt text model with ID: `Q29udGVudEdlbmVyYXRpb25Nb2RlbDpmY2E3ZTUzNS00YmE1LTRlODQtODkzYy0xMDg0YWM1ZGM0NDU=`. There are a number of models available to use which are listed in the [Model docs](https://amplience.com/developers/docs/apis/content-studio/#example-response-5)
+
+### Brand Voice ID property (optional)
+
+For generated alt text a [brand voice](https://amplience.com/developers/docs/apis/content-studio/#brand-voices) id can be provided as a parameter into the extension configuration. When alt text generation is requested, the extension will use the brand voice assigned to this property as the input.
 
 ## Suggested implementation
 
-When using this extension for alt text for an image, it is recommended that you disable the standard alt text behaviour for your image as to not confuse the content creators with multiple methods of inputing alt text.
+When using this extension for alt text for an image, it is recommended that you disable the standard alt text behaviour for your image so as to not confuse the content creators with multiple methods of inputing alt text.
 
 Image of what is recommended to be disabled:
 ![Native Media Card Alt Text](media/native-media-card-alt-text.png)
@@ -337,6 +367,66 @@ Snippet:
 }
 ```
 
+#### Standard generate mode alt text snippet
+
+Title: `Auto Alt text (standard)`
+Description: `Snippet for the automatic alt text extension for a standard text field`
+Snippet:
+
+```json
+{
+  "title": "Image alt text",
+  "description": "Alt text for the selected image",
+  "allOf": [
+    {
+      "$ref": "http://bigcontent.io/cms/schema/v1/localization#/definitions/localized-string"
+    }
+  ],
+  "ui:extension": {
+    "name": "automatic-alt-text",
+    "params": {
+      "image": "{{PATH_TO_IMAGE_HERE}}",
+      "mode": "GENERATED",
+      "generateAltTextSettings": {
+        "templateId": "{{TEMPLATE_ID_HERE}}",
+        "modelId": "{{MODEL_ID_HERE}}",
+        "brandVoiceId": "{{BRAND_VOICE_ID_HERE}}"
+      }
+    }
+  }
+}
+```
+
+#### Localised generated mode alt text snippet
+
+Title: `Auto Alt text (localised)`
+Description: `Snippet for the automatic alt text extension for a localised text field`
+Snippet:
+
+```json
+{
+  "title": "Image alt text",
+  "description": "Alt text for the selected image",
+  "allOf": [
+    {
+      "$ref": "http://bigcontent.io/cms/schema/v1/localization#/definitions/localized-string"
+    }
+  ],
+  "ui:extension": {
+    "name": "automatic-alt-text",
+    "params": {
+      "image": "{{PATH_TO_IMAGE_HERE}}",
+      "mode": "GENERATED",
+      "generateAltTextSettings": {
+        "templateId": "{{TEMPLATE_ID_HERE}}",
+        "modelId": "{{MODEL_ID_HERE}}",
+        "brandVoiceId": "{{BRAND_VOICE_ID_HERE}}"
+      }
+    }
+  }
+}
+```
+
 ### Disabling Auto caption
 
 The extension will automatically fetch generated alt text from the image asset when the image property is populated instead of requiring the user to manually press the generate button.
@@ -361,26 +451,8 @@ If you wish to disable auto caption, then use the following in your extension pa
 - When `autoCaption` is enabled, restoring the content item via the version history to a version that doesn't have alt text will send a graphql request that will populate the alt text field.
 - Images must be hosted / served by Amplience.
 - The image object that you configure to point to MUST be a standard Amplience image object as per the [data type](https://amplience.com/developers/docs/schema-reference/data-types/#image) and associated image link.
-- The extension pulls in alt text from the Amplience Content Hub to be used in Dynamic Content. Any edits / changes are in Dynamic Content only and not saved back to Content Hub.
-- Locales in Dynamic Content must match the locales for [Automatic Alt Text](https://amplience.com/developers/docs/release-notes/2024/alt-text-generation/) in Content Hub for population.
+- Locales in Dynamic Content must match the locales for [Automatic Alt Text](https://amplience.com/developers/docs/dev-tools/assets/image-alt-text/) in Content Hub for population.
 - Localised fields do not support min / max / pattern validation.
-- Localised fields support required validation as a combination of all available alt text
-
-## Development
-
-> [!IMPORTANT]  
-> This extension is built using an unreleased Amplience component library package. Therefore, any local running of the code or customisation are currently for Amplience engineers only until the component library is publically released. This repository is made public for awareness of how this functionality can be used.
-
-Run the following to run the extension locally:
-
-```
-nvm use
-npm install
-npm run dev
-```
-
-And to build:
-
-```
-npm run build
-```
+- Localised fields support required validation as a combination of all available alt text.
+- Standard mode:
+  - The extension pulls in alt text from the Amplience Content Hub to be used in Dynamic Content. Any edits / changes are in Dynamic Content only and not saved back to Content Hub.

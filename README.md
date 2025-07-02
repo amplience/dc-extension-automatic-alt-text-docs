@@ -28,6 +28,8 @@ Screenshot of extension on localised text field in automatic mode:
 - Ability to manually create alt text or edit in Dynamic Content
 - Ability to use a brand voice for generated alt text
 
+> Note: For all modes, this extension will allow the user to assign a locale when creating a content item <u>**prior to saving**</u> that will update the values of the default alt text to be that of the assigned locale.
+
 ## User Guide
 
 This section describes how to use this extension from a user perspective in the CMS (Dynamic Content).
@@ -456,3 +458,4 @@ If you wish to disable auto caption, then use the following in your extension pa
 - Localised fields support required validation as a combination of all available alt text.
 - Standard mode:
   - The extension pulls in alt text from the Amplience Content Hub to be used in Dynamic Content. Any edits / changes are in Dynamic Content only and not saved back to Content Hub.
+

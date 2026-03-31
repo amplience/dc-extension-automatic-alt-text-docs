@@ -119,7 +119,7 @@ The extensions can be configured with a number of installation parameters which 
 | `autoCaption`                          |          | `true`                                                                             | Toggle auto caption                                                                                                                                  |
 | `defaultLocale`                        |          | `"en-US"`                                                                          | Only used for `GENERATED` mode. Used to override the hubs default locale. locale                                                                     |
 | `generateAltTextSettings.templateId`   |          | `Q29udGVudEdlbmVyYXRpb25CcmllZlRlbXBsYXRlOmFsdC10ZXh0`                             | Only used for `GENERATED` mode.                                                                                                                      |
-| `generateAltTextSettings.modelId`      |          | `Q29udGVudEdlbmVyYXRpb25Nb2RlbDpmY2E3ZTUzNS00YmE1LTRlODQtODkzYy0xMDg0YWM1ZGM0NDU=` | Only used for `GENERATED` mode                                                                                                                       |
+| `generateAltTextSettings.modelId`      |          | `Q29udGVudEdlbmVyYXRpb25Nb2RlbDowYjk2YjJmNS02ODVhLTQ3ZmUtOTk4YS1lMTVmNDg5ZTU2ZGM=` | Only used for `GENERATED` mode                                                                                                                       |
 | `generateAltTextSettings.brandVoiceId` |          |                                                                                    | Only used for `GENERATED` mode                                                                                                                       |
 
 ## Prerequisites
@@ -144,7 +144,7 @@ Amplience has a default alt text template with ID: `Q29udGVudEdlbmVyYXRpb25Ccmll
 
 ### Model ID property
 
-Amplience has a default alt text model with ID: `Q29udGVudEdlbmVyYXRpb25Nb2RlbDpmY2E3ZTUzNS00YmE1LTRlODQtODkzYy0xMDg0YWM1ZGM0NDU=`. There are a number of models available to use which are listed in the [Model docs](https://amplience.com/developers/docs/apis/content-studio/#example-response-5)
+Amplience has a default alt text model with ID: `Q29udGVudEdlbmVyYXRpb25Nb2RlbDowYjk2YjJmNS02ODVhLTQ3ZmUtOTk4YS1lMTVmNDg5ZTU2ZGM=`. There are a number of models available to use which are listed in the [Model docs](https://amplience.com/developers/docs/apis/content-studio/#example-response-5)
 
 ### Brand Voice ID property (optional)
 
